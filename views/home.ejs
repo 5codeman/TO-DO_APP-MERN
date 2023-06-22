@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+    <div id="container">
+        <div id="title">
+            <h3>TO-DO APP</h3>
+        </div>
+        <div id="frmdiv">
+            <form id="frm" action="/add" method="post">
+                <div id="frm_des">
+                    <label for="des">DESCRIPTION</label>
+                    <input autocomplete="off" id="des" name="description" type="text"
+                        placeholder="What do you need to do?" required>
+                </div>
+                <div id="frm_lower">
+                    <div id="frm_cat">
+                        <label for="cat">CATEGORY</label>
+                        <select name="category" id="cat" required>
+                            <option value="" disabled selected>Choose a Category</option>
+                            <option value="Personal">Personal</option>
+                            <option value="Work">Work</option>
+                            <option value="Study">Study</option>
+                            <option value="Important">Important</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                    <div id="frm_date">
+                        <label for="dt">DUE DATE</label>
+                        <input id="DT" name="due_date" type="date" required>
+                    </div>
+                </div>
+
+                <div id="button">
+                    <button id="add" type="submit"> <span class=" logo material-symbols-outlined">
+                            add
+                        </span> ADD TASK</button>
+            </form>
+            <form id="del_frm" action="/delete" method="get">
+                <button id="del" type="submit"> <span class=" logo material-symbols-outlined">
+                        delete
+                    </span> DELETE TASKS</button>
+        </div>
+
+    </div>
+
+    <div id="allTasks">
+        <!-- render the task -->
+        <% task_list.reverse() %>
+            <% if(task_list.length==0) { %>
+                <p id="empty_task_list_para"> 🤔 No Task Added <br> <br> ✍ Add some task to see here!</p>
+                <% } else{ %>
+                    <ul class="ul">
+                        <% for(let i of task_list) { %>
+                            <li class="tasks">
+                                <div class="task_card">
+                                    <div class="task_checkbox">
+                                        <input class="right" name="<%=i._id%>" type="checkbox">
+                                    </div>
+                                    <div class="task_content">
+                                        <p class="para js">
+                                            <%= i.description %>
+                                        </p>
+                                        <p class="js">
+                                            <span class=" cal material-symbols-outlined">
+                                                calendar_month
+                                            </span>
+                                            <%= (i.due_date) %>
+                                        </p>
+                                    </div>
+                                    <div class="task_category">
+                                        <p>
+                                            <%= i.category %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                            <% } %>
+                    </ul>
+                    <% } %>
+
+    </div>
+    </form>
+    </div>
+    <script src="/js/home.js"></script>
+</body>
+
+</html>
